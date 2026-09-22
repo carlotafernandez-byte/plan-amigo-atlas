@@ -1,0 +1,12 @@
+{
+  "name": "atlas-plan-amigo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plan Amigo (referidos) de Atlas × Ucademy — acceso a universidad. Clon rebrandeado del Trae a un colega de Explora FP, escrito solo contra la línea de acceso uni en HubSpot.",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy",
+    "deploy:prod": "vercel deploy --prod"
+  }
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trae a un colega · Atlas × Ucademy</title>
+<meta name="description" content="¿Estudias con Atlas para entrar en la uni? Recomienda a un colega: si se matricula por ti, cobras 100 €, 150 € o 200 € por cada uno.">
+<meta name="theme-color" content="#2B2F40">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<!-- Previews al compartir (WhatsApp / redes) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Atlas × Ucademy">
+<meta property="og:title" content="Trae a un colega a la ruta y cobra por ello">
+<meta property="og:description" content="Si alguien de tu entorno entra en la uni por tu recomendación, tú te llevas premio: 100 €, 150 € o 200 € por cada colega.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trae a un colega a la ruta y cobra por ello">
+<meta name="twitter:description" content="Recomienda a un colega a Atlas y cobra 100–200 € por cada matrícula.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Besley:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* Paleta Atlas (tokens de marca) */
+    --azul-01:#2B2F40; --azul-02:#3E4CC4; --azul-03:#7792FF;
+    --soporte-04:#667DED; --soporte-05:#A6B9FF; --soporte-06:#D5DFFF;
+    --blanco-azulado:#FAFEFF; --amarillo:#FFE45E;
+    --ink:#141417; --muted:#4C4C4E; --linea:#DFDFE1;
+    --bg:#FAFEFF; --card:#fff; --error:#EA2B25;
+
+    --font-titular:'Gravity Extended','Anton','Arial Black',system-ui,sans-serif;
+    --font-sub:'Besley','Source Serif Pro',Georgia,serif;
+    --font-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --font-hand:'Caveat','Patrick Hand',cursive;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:20px 16px 56px;position:relative}
+  .card{background:var(--card);border:1px solid var(--linea);border-radius:22px;overflow:hidden;box-shadow:0 14px 50px rgba(43,47,64,.12);position:relative}
+
+  /* ENDOSO / marca */
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:18px;position:relative}
+  .brand svg{height:26px;width:auto;display:block}
+  .brand .x{color:var(--soporte-05);font-size:15px;font-weight:600;line-height:1}
+  .brand .uc{color:var(--blanco-azulado);font-weight:700;letter-spacing:3px;font-size:14px}
+
+  /* HERO */
+  .head{background:radial-gradient(120% 140% at 100% 0%,#3a4470 0%,var(--azul-01) 55%);color:var(--blanco-azulado);padding:30px 28px 28px;position:relative;overflow:hidden}
+  .head::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(119,146,255,.14)}
+  .badge{position:relative;display:inline-flex;align-items:center;gap:7px;background:rgba(119,146,255,.16);border:1px solid rgba(119,146,255,.45);color:var(--soporte-05);font-size:12px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:16px;font-family:var(--font-body)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--azul-03);box-shadow:0 0 0 3px rgba(119,146,255,.28)}
+  .head h1{position:relative;margin:0 0 12px;font-family:var(--font-titular);font-size:30px;line-height:1.05;font-weight:400;letter-spacing:.5px;text-transform:uppercase;color:var(--blanco-azulado)}
+  .head h1 .u{color:var(--azul-01);background:var(--azul-03);padding:0 6px;border-radius:3px;display:inline-block;transform:rotate(-1.5deg)}
+  .head p.sub{position:relative;margin:0;font-family:var(--font-sub);font-size:16px;line-height:1.4;opacity:.94;max-width:46ch}
+
+  /* REWARD BAND */
+  .reward{position:relative;display:flex;align-items:stretch;gap:8px;margin-top:24px}
+  .rstep{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(119,146,255,.32);border-radius:14px;padding:12px 8px;text-align:center}
+  .rstep .n{font-size:11px;font-weight:600;letter-spacing:.4px;color:rgba(250,254,255,.68);text-transform:uppercase}
+  .rstep .v{font-family:var(--font-titular);font-size:24px;font-weight:400;color:var(--azul-03);margin-top:4px;line-height:1}
+  .arw{display:flex;align-items:center;color:rgba(119,146,255,.55);font-weight:800;font-size:16px}
+  .rcap{position:relative;margin:14px 0 0;font-size:12.5px;color:rgba(250,254,255,.78);text-align:center}
+  .rcap b{color:var(--azul-03)}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:24px 28px 4px}
+  .step{text-align:center}
+  .step .c{width:36px;height:36px;border-radius:50%;background:var(--azul-01);color:var(--azul-03);font-family:var(--font-titular);font-size:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+  .step h4{margin:0 0 3px;font-size:14px;font-weight:700}
+  .step p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+
+  form{padding:22px 28px 26px}
+  .section-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700;margin:22px 0 12px;display:flex;align-items:center;gap:8px}
+  .section-title::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--azul-03)}
+  label{display:block;font-size:14px;font-weight:600;margin:14px 0 6px}
+  .req{color:var(--error)}
+  input,select,textarea{width:100%;padding:12px 13px;font-size:15px;border:1.5px solid var(--linea);border-radius:12px;background:#fff;color:var(--ink);font-family:inherit;transition:border-color .15s,box-shadow .15s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--soporte-04);box-shadow:0 0 0 3px rgba(102,125,237,.28)}
+  textarea{resize:vertical;min-height:66px}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:5px}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin:22px 0 4px;font-size:13.5px;color:var(--muted)}
+  .consent input{width:auto;margin-top:3px;accent-color:var(--azul-02)}
+  .err{color:var(--error);font-size:13px;margin-top:6px;display:none;font-weight:600}
+  .err.show{display:block}
+  /* Honeypot antispam: fuera de pantalla, invisible para personas */
+  .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  button{width:100%;margin-top:24px;padding:16px;font-size:16px;font-weight:700;color:var(--azul-01);background:var(--amarillo);border:none;border-radius:14px;cursor:pointer;transition:transform .12s,box-shadow .15s;letter-spacing:.2px;font-family:var(--font-body)}
+  button:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--azul-01)}
+  button:active{transform:translate(0,0);box-shadow:none}
+  button:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+
+  /* TRUST */
+  .trust{display:flex;flex-wrap:wrap;gap:14px 18px;justify-content:center;align-items:center;padding:18px 24px;border-top:1px solid var(--linea);background:#f6f8ff}
+  .titem{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);font-weight:600}
+  .tick-s{color:var(--azul-02);font-weight:800}
+  .foot{text-align:center;font-size:12px;color:var(--muted);margin:14px 0 0}
+  .foot a{color:var(--azul-02);font-weight:600}
+
+  /* SUCCESS */
+  .ok{display:none;padding:48px 28px;text-align:center}
+  .ok .tick{width:74px;height:74px;border-radius:50%;background:var(--azul-03);color:var(--azul-01);font-size:40px;line-height:74px;margin:0 auto 18px;font-weight:900}
+  .ok h2{margin:0 0 8px;font-family:var(--font-titular);font-size:24px;font-weight:400;text-transform:uppercase;letter-spacing:.5px}
+  .ok p{margin:0 auto;color:var(--muted);max-width:44ch;font-size:15px;font-family:var(--font-sub)}
+  .ok button{max-width:300px;margin:26px auto 0}
+
+  /* Post-it scrapbook (elemento analógico Atlas) */
+  .postit{position:absolute;top:-12px;right:14px;z-index:5;background:var(--amarillo);color:var(--azul-01);font-family:var(--font-hand);font-size:22px;line-height:1;padding:14px 16px 16px;transform:rotate(5deg);box-shadow:3px 4px 12px rgba(43,47,64,.22);border-radius:2px}
+  .postit small{display:block;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:.5px;opacity:.7;margin-top:4px;text-transform:uppercase}
+
+  @media(max-width:560px){
+    .postit{display:none}
+  }
+  @media(max-width:520px){
+    .head h1{font-size:25px}.rstep .v{font-size:20px}.steps{padding:22px 20px 0}
+    form{padding:18px 20px 24px}.head{padding:28px 22px 26px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Post-it manuscrito: gesto analógico "diario de viaje" -->
+  <div class="postit" aria-hidden="true">+ colegas<br>= + pasta<small>léete esto ↓</small></div>
+
+  <div class="card">
+    <div class="head">
+      <!-- Endoso atlas × UCADEMY (por defecto durante los primeros meses) -->
+      <div class="brand">
+        <svg viewBox="0 0 1236 442" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Atlas">
+          <g clip-path="url(#a)">
+          <path d="M153.674 442.248C83.5296 442.247 22.9771 400.293 5.09749 341.402C-4.08467 311.158 -1.31896 277.577 17.1229 247.657C35.1842 218.356 65.5277 196.855 104.048 183.361C167.416 161.165 228.999 173.923 275.683 191.615C276.14 188.692 276.55 185.75 276.912 182.791C281.548 144.987 273.131 125.095 264.81 114.794C256.235 104.18 242.018 96.6366 221.723 94.6813C200.716 92.6584 174.334 96.6858 148.455 105.913C122.377 115.211 101.446 128.132 89.8138 139.729L23.1485 72.8589C47.387 48.6943 81.7146 29.4595 116.74 16.9706C151.966 4.41037 192.534 -2.98388 230.776 0.699793C269.726 4.45187 310.012 20.4982 338.256 55.4611C366.756 90.7412 377.481 138.427 370.632 194.286C368.784 209.35 365.983 224.229 362.314 238.769C399.65 272.045 438.36 334.667 438.36 424.53H343.936C343.936 385.173 333.295 356.069 321.236 336.068C315.315 345.489 308.946 354.464 302.167 362.923C266.147 407.872 214.705 442.248 153.674 442.248ZM153.674 347.831C177.191 347.831 203.996 334.437 228.484 303.878C234.116 296.85 239.428 289.128 244.339 280.814C209.724 267.302 171.541 259.77 135.264 272.477C111.07 280.952 101.211 291.186 97.5039 297.2C94.1788 302.594 93.609 307.911 95.4482 313.97C99.6126 327.685 119.194 347.83 153.674 347.831Z" fill="#FAFEFF"/>
+          <path d="M1236 330.8C1236 378.846 1193.61 433.109 1122.96 433.109C1055.13 433.109 1012.73 389.585 1006.52 330.8H1099.78C1096.95 352.28 1105.99 365.28 1122.96 365.28C1134.26 365.28 1142.74 356.236 1142.74 346.062C1142.74 299.712 1011.6 328.539 1011.6 223.404C1011.6 178.75 1057.95 131.27 1121.82 131.27C1184 131.27 1224.13 171.402 1232.61 225.665H1139.34C1142.18 212.664 1136.52 199.099 1122.39 199.099C1110.52 199.099 1102.04 205.882 1102.04 216.056C1102.04 259.58 1236 220.578 1236 330.8Z" fill="#FAFEFF"/>
+          <path d="M888.089 424.63V404.281C875.65 422.935 856.996 433.109 829.869 433.109C782.954 433.109 746.208 395.238 746.208 343.235C746.208 286.711 790.862 244.884 851.344 244.884C864.91 244.884 877.349 246.579 888.089 249.405V234.709C888.089 219.448 883.001 199.099 867.736 199.099C852.478 199.099 849.652 216.056 852.478 231.318H747.907C754.687 188.925 793.124 131.27 867.736 131.27C935.569 131.27 989.828 169.141 989.828 264.102V424.63H888.089ZM850.78 338.714C850.78 355.106 858.13 364.149 868.871 364.149C878.477 364.149 888.089 353.41 888.089 319.495V311.017C884.693 309.887 880.739 309.321 877.349 309.321C860.956 309.321 850.78 322.886 850.78 338.714Z" fill="#FAFEFF"/>
+          <path d="M724.217 28.9551V424.624H622.474V28.9551H724.217Z" fill="#FAFEFF"/>
+          <path d="M399.236 214.366V139.754H443.325V79.8383L545.068 45.9238V139.754H599.331V214.366H545.068V316.674C545.068 335.328 547.894 364.72 573.896 364.72C586.896 364.72 592.548 361.329 598.201 357.937V425.766C592.548 428.593 581.243 433.114 552.981 433.114C482.892 433.114 443.325 372.068 443.325 310.457V214.366H399.236Z" fill="#FAFEFF"/>
+          </g>
+          <defs><clipPath id="a"><rect width="1236" height="442" fill="#fff"/></clipPath></defs>
+        </svg>
+        <span class="x">×</span>
+        <span class="uc">UCADEMY</span>
+      </div>
+
+      <span class="badge"><span class="dot"></span>Solo para alumnos de Atlas</span>
+      <h1>Trae a un colega a la <span class="u">ruta</span> y cobra por ello</h1>
+      <p class="sub">Si alguien de tu entorno entra en la uni por tu recomendación, tú te llevas premio de verdad. Cuantos más traigas, más ganas.</p>
+
+      <div class="reward">
+        <div class="rstep"><div class="n">1.er colega</div><div class="v">100€</div></div>
+        <div class="arw">→</div>
+        <div class="rstep"><div class="n">2.º colega</div><div class="v">150€</div></div>
+        <div class="arw">→</div>
+        <div class="rstep"><div class="n">3.º y +</div><div class="v">200€</div></div>
+      </div>
+      <p class="rcap">¿Traes 3? Son <b>450 €</b>. Del cuarto en adelante, <b>200 € por cada uno</b>.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="c">1</div><h4>Recomiendas</h4><p>Rellenas los datos de tu colega aquí abajo.</p></div>
+      <div class="step"><div class="c">2</div><h4>Traza su ruta</h4><p>Nuestro equipo le contacta y le arma el plan.</p></div>
+      <div class="step"><div class="c">3</div><h4>Cobras</h4><p>Se matricula, empieza, y recibes tu recompensa.</p></div>
+    </div>
+
+    <form id="referralForm" novalidate>
+      <!-- Honeypot antispam: debe quedar vacío. Oculto para personas, cebo para bots. -->
+      <div class="hp" aria-hidden="true">
+        <label for="company">No rellenar este campo</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="section-title">Tú (alumno/a de Atlas)</div>
+      <label for="studentEmail">Tu email de estudiante <span class="req">*</span></label>
+      <input type="email" id="studentEmail" name="studentEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email" aria-describedby="err-studentEmail">
+      <div class="hint">El mismo con el que te matriculaste en Atlas. Nos sirve para asignarte el premio.</div>
+      <div class="err" id="err-studentEmail" role="alert">Introduce un email válido.</div>
+
+      <div class="section-title">Tu colega</div>
+      <label for="friendName">Nombre y apellidos <span class="req">*</span></label>
+      <input type="text" id="friendName" name="friendName" placeholder="Nombre y apellidos" autocomplete="off" aria-describedby="err-friendName">
+      <div class="err" id="err-friendName" role="alert">Indica el nombre de tu colega.</div>
+
+      <label for="friendEmail">Su email <span class="req">*</span></label>
+      <input type="email" id="friendEmail" name="friendEmail" placeholder="colega@ejemplo.com" autocomplete="off" aria-describedby="err-friendEmail">
+      <div class="err" id="err-friendEmail" role="alert">Introduce un email válido.</div>
+
+      <label for="friendPhone">Su teléfono <span class="req">*</span></label>
+      <input type="tel" id="friendPhone" name="friendPhone" placeholder="600 000 000" autocomplete="off" inputmode="tel" aria-describedby="err-friendPhone">
+      <div class="err" id="err-friendPhone" role="alert">Introduce un teléfono válido (9 dígitos).</div>
+
+      <label for="course">¿Qué vía de acceso le interesa?</label>
+      <select id="course" name="course">
+        <option value="">Selecciona (opcional)</option>
+        <option>Selectividad / PAU / EvAU</option>
+        <option>PCE · Pruebas de Competencias Específicas (desde el extranjero)</option>
+        <option>Acceso +25</option>
+        <option>Acceso a universidad en Portugal</option>
+        <option>Otro / Aún no lo tiene claro</option>
+      </select>
+      <div class="hint">Si no lo sabe, no pasa nada: nuestro equipo le orienta.</div>
+
+      <label for="notes">Comentario (opcional)</label>
+      <textarea id="notes" name="notes" placeholder="¿Algo que nos ayude? Mejor horario para llamarle, etc."></textarea>
+
+      <div class="consent">
+        <input type="checkbox" id="consent" name="consent" aria-describedby="err-consent">
+        <label for="consent" style="margin:0;font-weight:500">Confirmo que mi colega me ha dado permiso para compartir sus datos con Atlas × Ucademy para recibir información sobre el acceso a la universidad. <span class="req">*</span></label>
+      </div>
+      <div class="err" id="err-consent" role="alert">Necesitamos tu confirmación para continuar.</div>
+
+      <button type="submit" id="submitBtn">Enviar recomendación</button>
+      <div class="foot">Tus datos se tratan según nuestra <a href="https://ucademy.com/politica-de-privacidad" target="_blank" rel="noopener">Política de Privacidad</a> y las bases del programa.</div>
+    </form>
+
+    <div class="ok" id="okScreen">
+      <div class="tick">✓</div>
+      <h2>¡Recomendación enviada!</h2>
+      <p>Gracias, crack. Nuestro equipo contacta con tu colega y le traza la ruta. Cuando se matricule y empiece, recibes tu recompensa.</p>
+      <button type="button" id="againBtn">Recomendar a otro colega</button>
+    </div>
+
+    <div class="trust">
+      <span class="titem"><span class="tick-s">✓</span> Atlas × Ucademy</span>
+      <span class="titem"><span class="tick-s">✓</span> Miles de alumnos en la uni</span>
+      <span class="titem"><span class="tick-s">★</span> Valorados en Trustpilot</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   CONFIGURACIÓN — el front solo hace POST a este endpoint.
+   La función serverless (/api/referido) consulta HubSpot (para saber el
+   comercial) y avisa por Slack. El token de HubSpot y el webhook de Slack
+   viven DENTRO de la función (variables de entorno), NUNCA aquí.
+   ========================================================================== */
+const AUTOMATION_ENDPOINT = "/api/referido";
+
+const form = document.getElementById('referralForm');
+const okScreen = document.getElementById('okScreen');
+const submitBtn = document.getElementById('submitBtn');
+
+function showErr(id, show){
+  document.getElementById('err-'+id).classList.toggle('show', show);
+  const field = document.getElementById(id);
+  if(field) field.setAttribute('aria-invalid', show ? 'true' : 'false');
+}
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+function isPhone(v){ return v.replace(/[\s.\-()]/g,'').replace(/^\+?34/,'').length >= 9; }
+
+function validate(d){
+  let ok = true;
+  const checks = {
+    studentEmail: isEmail(d.studentEmail),
+    friendName: d.friendName.trim().length >= 2,
+    friendEmail: isEmail(d.friendEmail),
+    friendPhone: isPhone(d.friendPhone),
+    consent: d.consent
+  };
+  for (const k in checks){ showErr(k, !checks[k]); if(!checks[k]) ok = false; }
+  return ok;
+}
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  // Honeypot: si un bot rellenó el campo oculto, fingimos éxito sin enviar nada.
+  if(form.company && form.company.value.trim() !== ''){
+    form.style.display = 'none';
+    okScreen.style.display = 'block';
+    return;
+  }
+
+  const d = {
+    studentEmail: form.studentEmail.value,
+    friendName: form.friendName.value,
+    friendEmail: form.friendEmail.value,
+    friendPhone: form.friendPhone.value,
+    course: form.course.value || '—',
+    notes: form.notes.value.trim() || '—',
+    consent: form.consent.checked
+  };
+  if(!validate(d)){
+    const firstErr = document.querySelector('.err.show');
+    if(firstErr){
+      const field = document.getElementById(firstErr.id.replace('err-',''));
+      if(field) field.focus({preventScroll:false});
+    }
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Enviando…';
+
+  try{
+    const res = await fetch(AUTOMATION_ENDPOINT, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        studentEmail: d.studentEmail, friendName: d.friendName, friendEmail: d.friendEmail,
+        friendPhone: d.friendPhone, course: d.course, notes: d.notes,
+        origin: 'ES',
+        company: form.company ? form.company.value : ''
+      })
+    });
+    if(!res.ok) throw new Error('Respuesta ' + res.status);
+    form.style.display = 'none';
+    okScreen.style.display = 'block';
+  }catch(err){
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar recomendación';
+    alert('No se pudo enviar la recomendación. Revisa tu conexión o inténtalo de nuevo en unos minutos.');
+    console.error(err);
+  }
+});
+
+document.getElementById('againBtn').addEventListener('click', function(){
+  form.reset();
+  ['studentEmail','friendName','friendEmail','friendPhone','consent'].forEach(k=>showErr(k,false));
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Enviar recomendación';
+  okScreen.style.display = 'none';
+  form.style.display = 'block';
+});
+</script>
+</body>
+</html>
