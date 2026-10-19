@@ -122,8 +122,10 @@ async function submitLeadViaForm(portalId, formGuid, friend, studentEmail, origi
   const lastname = parts.join(' ');
 
   // Cada field.name debe existir como propiedad de CONTACTO Y estar en el form.
-  // El marcador "Atlas | Plan Amigo" vive en el NEGOCIO (deal), no aquí: se pone
-  // en el deal mediante un workflow de HubSpot a partir de medio=Referido.
+  // "referrer" no está habilitado en formularios, así que el email de quien
+  // refiere se guarda dentro de "¿Cómo nos conociste?" (y además va a Slack).
+  // El marcador "Atlas | Plan Amigo" vive en el NEGOCIO (deal): se pone en el
+  // deal mediante un workflow de HubSpot a partir de medio=Referido.
   const fields = [
     { name: 'email', value: friend.email },
     { name: 'firstname', value: firstname },
@@ -131,8 +133,7 @@ async function submitLeadViaForm(portalId, formGuid, friend, studentEmail, origi
     { name: 'phone', value: friend.phone },
     { name: 'medio', value: 'Referido' },
     { name: 'canal', value: 'Referido' },
-    { name: 'referrer', value: studentEmail },
-    { name: 'como_nos_conociste_', value: 'Me recomendó un amigo — Plan Amigo' },
+    { name: 'como_nos_conociste_', value: `Plan Amigo — referido por ${studentEmail}` },
   ];
 
   const url = `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
