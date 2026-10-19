@@ -116,12 +116,14 @@ async function ownerInfo(token, ownerId) {
 
 /* ---- 2) CREAR LEAD vía API de Formularios (sin private app) ---------------- */
 
-async function submitLeadViaForm(portalId, formGuid, friend, studentEmail, origin, planAmigoValue) {
+async function submitLeadViaForm(portalId, formGuid, friend, studentEmail, origin) {
   const parts = friend.name.trim().split(/\s+/);
   const firstname = parts.shift() || friend.name;
   const lastname = parts.join(' ');
 
-  // Cada field.name debe existir como propiedad de contacto Y estar en el form.
+  // Cada field.name debe existir como propiedad de CONTACTO Y estar en el form.
+  // El marcador "Atlas | Plan Amigo" vive en el NEGOCIO (deal), no aquí: se pone
+  // en el deal mediante un workflow de HubSpot a partir de medio=Referido.
   const fields = [
     { name: 'email', value: friend.email },
     { name: 'firstname', value: firstname },
@@ -130,7 +132,6 @@ async function submitLeadViaForm(portalId, formGuid, friend, studentEmail, origi
     { name: 'medio', value: 'Referido' },
     { name: 'canal', value: 'Referido' },
     { name: 'referrer', value: studentEmail },
-    { name: 'plan_amigo_atlas', value: planAmigoValue },
     { name: 'como_nos_conociste_', value: 'Me recomendó un amigo — Plan Amigo' },
   ];
 
@@ -235,13 +236,12 @@ export default async function handler(req, res) {
 
   const {
     HUBSPOT_TOKEN, HUBSPOT_ACCESO_UNI_PIPELINE_ID,
-    HUBSPOT_PORTAL_ID, HUBSPOT_FORM_GUID, PLAN_AMIGO_VALUE,
+    HUBSPOT_PORTAL_ID, HUBSPOT_FORM_GUID,
   } = process.env;
 
   const pipelines = (HUBSPOT_ACCESO_UNI_PIPELINE_ID || '').split(',').map((s) => s.trim()).filter(Boolean);
   const uniPipelines = pipelines.length ? pipelines : DEFAULT_UNI_PIPELINES;
   const portalId = HUBSPOT_PORTAL_ID || DEFAULT_PORTAL_ID;
-  const planAmigoValue = PLAN_AMIGO_VALUE || 'Sí';
 
   const friend = { name: friendName, email: friendEmail, phone: friendPhone };
   const diagnostics = { hubspotTokenPresent: !!HUBSPOT_TOKEN, formGuidPresent: !!HUBSPOT_FORM_GUID };
@@ -269,7 +269,7 @@ export default async function handler(req, res) {
   let lead = { ok: false };
   if (HUBSPOT_FORM_GUID) {
     try {
-      lead = await submitLeadViaForm(portalId, HUBSPOT_FORM_GUID, friend, studentEmail, origin, planAmigoValue);
+      lead = await submitLeadViaForm(portalId, HUBSPOT_FORM_GUID, friend, studentEmail, origin);
       diagnostics.lead = lead;
     } catch (e) {
       console.error('[referido] Forms API error', e);
